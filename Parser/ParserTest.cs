@@ -58,5 +58,16 @@ namespace Parser
             expr.Accept(visitor);
             Assert.AreEqual("Variable(a)", visitor.ToString());
         }
+
+        [Test]
+        public void MoreParenTest()
+        {
+            var visitor = new DumpVisitor();
+            var parser = new Parser();
+            string data = "(a-(3))";
+            var expr = parser.Parse(data);
+            expr.Accept(visitor);
+            Assert.AreEqual("ParenExpr(BinaryExpr(Variable(a)-ParenExpr(Literal(3))))", visitor.ToString());
+        }
     }
 }
